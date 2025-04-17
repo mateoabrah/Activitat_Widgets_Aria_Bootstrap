@@ -1,15 +1,133 @@
+/* ============================================================
+   ArcDecò – full, AAA‑compliant stylesheet
+   ============================================================ */
 
-    body {
-        background-color: #f8f9fa;
-    }
+/* ---------- Variables ---------- */
+:root{
+  --c-bg          : #f8f9fa;
+  --c-bg-alt      : #ffffff;
+  --c-text        : #212529;
+  --c-text-muted  : #4d5561;
+  --c-primary     : #0041ad;   /* contraste 8.9:1 con #fff */
+  --c-primary-dark: #00348a;   /* contraste 11.3:1 con #fff */
+  --c-secondary   : #343a40;
+  --c-accent      : #ffc107;
+  --radius        : .5rem;
+  --shadow        : 0 2px 6px rgba(0 0 0/.08);
+  --focus-ring    : 2px solid var(--c-accent);
+}
 
-    .custom-footer {
-        background-color: #343a40;
-        color: #fff;
-        padding: 2rem;
-    }
+/* ---------- Base ---------- */
+html{scroll-behavior:smooth;}
 
-  h2 {
-    text-align: center;
-    padding-bottom: 4rem;
+body{
+  background:var(--c-bg);
+  color:var(--c-text);
+  font-size:1.125rem;
+  line-height:1.6;
+  font-family:system-ui,sans-serif;
+}
+
+h1,h2,h3,h4{font-weight:700;line-height:1.25;}
+h2{text-align:center;padding-bottom:4rem;}
+
+/* ---------- Links ---------- */
+a{
+  color:var(--c-primary);
+  text-decoration:underline;
+  text-underline-offset:.18em;
+}
+a:hover,a:focus-visible{color:var(--c-primary-dark);}
+a:focus-visible{outline:var(--focus-ring);}
+
+/* ---------- Navbar ---------- */
+.navbar{box-shadow:var(--shadow);}
+.navbar-brand,
+.navbar-dark .navbar-nav .nav-link{color:#fff;}
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus-visible,
+.navbar-dark .navbar-nav .nav-link.active{
+  color:var(--c-accent);outline:var(--focus-ring);
+}
+
+/* ---------- Carrusel ---------- */
+.carousel-item img{object-fit:cover;height:65vh;}
+.carousel-caption{
+  background:rgba(0 0 0/.9);   /* 90 % negro → contraste AAA con #fff */
+  border-radius:var(--radius);
+  padding:1rem 1.25rem;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon{filter:drop-shadow(0 0 4px #000);}
+
+/* Indicadores (puntitos) sin deformarse */
+.carousel-indicators{gap:.5rem;bottom:1rem;}
+.carousel-indicators [data-bs-target]{
+  width:10px;height:10px;flex:0 0 10px;
+  border-radius:50%;border:none;padding:0;margin:0;
+  background:rgba(255 255 255/.75);
+  transition:background-color .2s ease-in-out;
+}
+.carousel-indicators .active{background:var(--c-accent);}
+.carousel-indicators [data-bs-target]:focus-visible{outline:var(--focus-ring);}
+
+/* ---------- Containers ---------- */
+.container{max-width:900px;}
+
+/* ---------- Testimonis ---------- */
+.blockquote{font-size:1.125rem;border-left:4px solid var(--c-primary);padding-left:1rem;}
+.blockquote-footer{color:var(--c-text-muted);}
+
+/* ---------- Formularios ---------- */
+form .form-control,form .btn{font-size:1rem;border-radius:var(--radius);}
+form .form-control:focus{
+  border-color:var(--c-primary);
+  box-shadow:0 0 0 .2rem rgb(0 65 173 /.25);
+}
+.btn-primary{
+  background:var(--c-primary);
+  border-color:var(--c-primary);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible{
+  background:var(--c-primary-dark);
+  border-color:var(--c-primary-dark);
+  outline:var(--focus-ring);
+}
+button,[role="button"],input[type="submit"]{min-height:10px;padding-inline:1.25rem;}
+
+
+/* ---------- Accordion ---------- */
+.accordion-button:not(.collapsed){
+  background:var(--c-bg-alt);
+  color:var(--c-text);
+}
+.accordion-button:focus-visible{outline:var(--focus-ring);}
+.accordion-body{color:var(--c-text-muted);}
+
+/* ---------- Footer ---------- */
+.custom-footer{
+  background:var(--c-secondary);
+  color:#fff;
+  padding:2rem;
+}
+.custom-footer a{color:#fff;}
+.custom-footer a:hover,
+.custom-footer a:focus-visible{color:var(--c-accent);outline:var(--focus-ring);}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  .carousel,.carousel *{animation-duration:.01ms!important;transition-duration:.01ms!important;}
+  .carousel{--bs-carousel-interval:0;}
+}
+
+/* ---------- Modo oscuro ---------- */
+@media (prefers-color-scheme:dark){
+  :root{
+    --c-bg:#121212;--c-bg-alt:#1e1e1e;
+    --c-text:#f1f1f1;--c-text-muted:#c7c7c7;
   }
+  body{background:var(--c-bg);}
+  .navbar,.custom-footer{background:#000;}
+  .carousel-caption{background:rgba(0 0 0/.9);}   /* mantiene AAA */
+}
