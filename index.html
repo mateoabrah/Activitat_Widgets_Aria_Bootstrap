@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ArcDecò | Arquitectura i Decoració</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -24,10 +25,16 @@
                     <li class="nav-item"><a class="nav-link active" href="#">Inici</a></li>
                     <li class="nav-item"><a class="nav-link" href="#sobrenosaltres">Sobre nosaltres</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacte">Contacte</a></li>
+                    <li class="nav-item">
+                        <button id="modo-toggle" class="btn btn-outline-secondary ms-2" aria-label="Cambiar modo">
+                            <i id="icono-modo" class="bi bi-moon"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+
 
     <!-- Carrusel -->
     <div id="carouselEmpresa" class="carousel slide" data-bs-ride="carousel" aria-label="Carrusel de serveis">
@@ -282,6 +289,35 @@
 
     <!-- JS de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toggleBtn = document.getElementById('modo-toggle');
+        const icono = document.getElementById('icono-modo');
+      
+        const aplicarModo = (modo) => {
+          document.body.classList.remove('light-mode', 'dark-mode');
+          if (modo === 'oscuro') {
+            document.body.classList.add('dark-mode');
+            icono.classList.replace('bi-moon', 'bi-sun');
+          } else if (modo === 'claro') {
+            document.body.classList.add('light-mode');
+            icono.classList.replace('bi-sun', 'bi-moon');
+          }
+        };
+      
+        // Al cargar la página
+        const modoGuardado = localStorage.getItem('modo');
+        if (modoGuardado === 'oscuro' || modoGuardado === 'claro') {
+          aplicarModo(modoGuardado);
+        }
+      
+        toggleBtn.addEventListener('click', () => {
+          const esOscuro = document.body.classList.contains('dark-mode');
+          const nuevoModo = esOscuro ? 'claro' : 'oscuro';
+          localStorage.setItem('modo', nuevoModo);
+          aplicarModo(nuevoModo);
+        });
+      </script>
+      
 </body>
 
 </html>
